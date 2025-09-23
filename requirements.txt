@@ -3,3 +3,5 @@ opencv-python
 numpy
 requests
 python-dotenv
+groq
+pillow

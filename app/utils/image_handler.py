@@ -1,10 +1,13 @@
 import cv2
 from io import BytesIO
 import numpy as np
+from PIL import Image
 
-def process_image(image_file):
+from celebrity_detector import CelebrityDetector
+
+def process_image(image_file, format="JPEG"):
     in_memory_file = BytesIO()
-    image_file.save(in_memory_file)
+    image_file.save(in_memory_file, format=format)
 
     image_bytes = in_memory_file.getvalue()
     nparr = np.frombuffer(image_bytes, np.uint8)
@@ -28,3 +31,17 @@ def process_image(image_file):
     is_success, buffer = cv2.imencode(".jpg", img)
 
     return buffer.tobytes(), largest_face
+
+if __name__ == "__main__":
+    # Open an image from disk
+    image_file = Image.open(r"C:\Users\admin\Pictures\Saved Pictures\rose.jpg")
+
+    image_bytes, face_coords = process_image(image_file)
+    if image_bytes:
+        print(f"Face detected.")
+    else:
+        print("No face detected.")
+
+    celeb_detector = CelebrityDetector()
+    content = celeb_detector.identify(image_bytes)
+    print("result: ", content)
