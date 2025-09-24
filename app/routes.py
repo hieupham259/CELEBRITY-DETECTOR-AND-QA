@@ -26,3 +26,25 @@ def index():
                 img_bytes, face_box = process_image(image_file)
 
                 player_info, player_name = celebrity_detector.identify(img_bytes)
+
+                if face_box.any():
+                    result_img_data = base64.b64encode(img_bytes).decode()
+                else:
+                    player_info = "No face detected Please try another image"
+        elif "question" in request.form:
+            user_question = request.form["question"]
+
+            player_name = request.form["player_name"]
+            player_info = request.form["player_info"]
+            result_img_data = request.form["result_img_data"]
+
+            answer = qa_engine.ask_about_celebrity(player_name, user_question)
+    
+    return render_template(
+        "index.html",
+        player_info=player_info,
+        result_img_data=result_img_data,
+        user_question=user_question,
+        answer=answer
+    )
+    

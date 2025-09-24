@@ -28,6 +28,6 @@ class QAEngine:
             print(f"Error: {e}")
             return "Sorry I couldn't find the answer"
 
-qa = QAEngine()
-content = qa.ask_about_celebrity("Tom Cruise", "What are his top achievements?")
-print(content)
+# qa = QAEngine()
+# content = qa.ask_about_celebrity("Tom Cruise", "What are his top achievements?")
+# print(content)

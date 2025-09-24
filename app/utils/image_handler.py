@@ -3,11 +3,12 @@ from io import BytesIO
 import numpy as np
 from PIL import Image
 
-from celebrity_detector import CelebrityDetector
-
-def process_image(image_file, format="JPEG"):
+def process_image(image_file, format=None):
     in_memory_file = BytesIO()
-    image_file.save(in_memory_file, format=format)
+    if format:
+        image_file.save(in_memory_file, format=format)
+    else:
+        image_file.save(in_memory_file)
 
     image_bytes = in_memory_file.getvalue()
     nparr = np.frombuffer(image_bytes, np.uint8)
@@ -36,12 +37,13 @@ if __name__ == "__main__":
     # Open an image from disk
     image_file = Image.open(r"E:\CELEBRITY-DETECTOR-AND-QA\rose.jpg")
 
-    image_bytes, face_coords = process_image(image_file)
+    image_bytes, face_coords = process_image(image_file, format="JPEG")
     if image_bytes:
         print(f"Face detected.")
     else:
         print("No face detected.")
 
+    from celebrity_detector import CelebrityDetector
     celeb_detector = CelebrityDetector()
     result, name = celeb_detector.identify(image_bytes)
     print("name: ", name)
