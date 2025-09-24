@@ -35,7 +35,7 @@ def process_image(image_file, format=None):
 
 if __name__ == "__main__":
     # Open an image from disk
-    image_file = Image.open(r"E:\CELEBRITY-DETECTOR-AND-QA\images\rose.jpg")
+    image_file = Image.open(r"..\..\images\rose.jpg")
 
     image_bytes, face_coords = process_image(image_file, format="JPEG")
     if image_bytes:
