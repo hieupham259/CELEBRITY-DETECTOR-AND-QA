@@ -61,4 +61,50 @@ class CelebrityDetector:
                 name_part = line.split(":", 1)[1].strip()
                 return name_part
 
-        return "Unknown"  
+        return "Unknown"
+    
+    def identify_gemini(self, image_bytes):
+        """
+        Use Google Gemini 2.5 Flash model to identify celebrities in images
+        """
+        try:
+            import google.generativeai as genai
+            
+            # Configure Gemini API
+            genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+            
+            # Initialize Gemini 2.5 Flash model
+            model = genai.GenerativeModel('gemini-2.5-flash')
+            
+            # Convert image bytes to PIL Image for Gemini
+            from PIL import Image
+            from io import BytesIO
+            
+            image = Image.open(BytesIO(image_bytes))
+            
+            # Create prompt for celebrity identification
+            prompt = """You are a celebrity recognition expert AI. 
+            Analyze the image carefully and identify the person. 
+            If you recognize the person as a celebrity, respond in this exact format:
+
+            - **Full Name**: [Full name including any alternate names]
+            - **Profession**: [Main profession/occupation]
+            - **Nationality**: [Country of origin]
+            - **Famous For**: [What they are most known for]
+            - **Top Achievements**: [Major accomplishments or awards]
+            
+            If you cannot identify the person or they are not a known celebrity, simply return "Unknown"."""
+            
+            # Generate response
+            response = model.generate_content([prompt, image])
+            
+            if response and response.text:
+                result = response.text.strip()
+                name = self.extract_name(result)
+                return result, name
+            else:
+                return "Unknown", "Unknown"
+                
+        except Exception as e:
+            print(f"Error calling Gemini API: {str(e)}")
+            return f"Error: {str(e)}", "Unknown"  

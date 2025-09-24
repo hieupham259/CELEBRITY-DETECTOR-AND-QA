@@ -25,7 +25,7 @@ def index():
             if image_file:
                 img_bytes, face_box = process_image(image_file)
 
-                player_info, player_name = celebrity_detector.identify(img_bytes)
+                player_info, player_name = celebrity_detector.identify_gemini(img_bytes)
 
                 if face_box.any():
                     result_img_data = base64.b64encode(img_bytes).decode()

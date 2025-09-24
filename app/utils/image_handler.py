@@ -35,7 +35,7 @@ def process_image(image_file, format=None):
 
 if __name__ == "__main__":
     # Open an image from disk
-    image_file = Image.open(r"E:\CELEBRITY-DETECTOR-AND-QA\rose.jpg")
+    image_file = Image.open(r"E:\CELEBRITY-DETECTOR-AND-QA\images\rose.jpg")
 
     image_bytes, face_coords = process_image(image_file, format="JPEG")
     if image_bytes:
@@ -45,5 +45,7 @@ if __name__ == "__main__":
 
     from celebrity_detector import CelebrityDetector
     celeb_detector = CelebrityDetector()
-    result, name = celeb_detector.identify(image_bytes)
+    # result, name = celeb_detector.identify(image_bytes)
+    # print("name: ", name)
+    result, name = celeb_detector.identify_gemini(image_bytes)
     print("name: ", name)
