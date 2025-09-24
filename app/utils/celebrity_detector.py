@@ -47,12 +47,18 @@ class CelebrityDetector:
         )
 
         # print(completion.choices[0].message)
-        content = completion.choices[0].message.content if completion.choices[0].message else "Unknown"
-        return content
+        # content = completion.choices[0].message.content if completion.choices[0].message else "Unknown"
+        if completion.choices[0].message:
+            result = completion.choices[0].message.content
+            name = self.extract_name(result)
+            return result, name
+        
+        return "Unknown", ""
 
-    def extract_name(self,content):
+    def extract_name(self, content):
         for line in content.splitlines():
             if line.lower().startswith("- **full name**:"):
-                return line.split(":")[1].strip()
+                name_part = line.split(":", 1)[1].strip()
+                return name_part
 
         return "Unknown"  

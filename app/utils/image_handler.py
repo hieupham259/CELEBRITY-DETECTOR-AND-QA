@@ -34,7 +34,7 @@ def process_image(image_file, format="JPEG"):
 
 if __name__ == "__main__":
     # Open an image from disk
-    image_file = Image.open(r"C:\Users\admin\Pictures\Saved Pictures\rose.jpg")
+    image_file = Image.open(r"E:\CELEBRITY-DETECTOR-AND-QA\rose.jpg")
 
     image_bytes, face_coords = process_image(image_file)
     if image_bytes:
@@ -43,5 +43,5 @@ if __name__ == "__main__":
         print("No face detected.")
 
     celeb_detector = CelebrityDetector()
-    content = celeb_detector.identify(image_bytes)
-    print("result: ", content)
+    result, name = celeb_detector.identify(image_bytes)
+    print("name: ", name)
