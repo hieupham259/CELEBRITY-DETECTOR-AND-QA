@@ -4,6 +4,7 @@ executors:
   docker-executor:
     docker:
       - image: google/cloud-sdk:latest
+      - image: docker:20.10.14
     working_directory: ~/repo
 
 jobs:
