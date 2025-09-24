@@ -3,8 +3,8 @@ version: 2.1
 executors:
   docker-executor:
     docker:
-      - image: google/cloud-sdk:latest
-      - image: docker:20.10.14
+      # - image: google/cloud-sdk:latest
+      - image: cimg/gcp:2023.06
     working_directory: ~/repo
 
 jobs:
