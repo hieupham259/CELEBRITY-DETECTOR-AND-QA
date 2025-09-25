@@ -126,10 +126,11 @@ Copy the output and use it as needed in environment variables or CircleCI secret
 
    ```bash
    kubectl create secret generic llmops-secrets \
-   --from-literal=GROQ_API_KEY="your_actual_groq_api_key"
+      --from-literal=GROQ_API_KEY="your_groq_api_key" \
+      --from-literal=GEMINI_API_KEY="your_gemini_api_key"
    ```
 
-   > This secret will be referenced in your Kubernetes deployment file to securely fetch the `GROQ_API_KEY`.
+   > This secret will be referenced in your Kubernetes deployment file to securely fetch the `GROQ_API_KEY` and `GEMINI_API_KEY`.
 
 
 ### ✅ Trigger CircleCI Pipeline
