@@ -23,6 +23,11 @@ spec:
             secretKeyRef:
               name: llmops-secrets
               key: GROQ_API_KEY
+        - name: GEMINI_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: llmops-secrets
+              key: GEMINI_API_KEY
 
 ---
 
